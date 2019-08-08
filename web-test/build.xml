@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<project name="web-test" default="war" basedir=".">
+    <property name="tomcat.lib" value="D:/Program Files/apache-tomcat-8.0.33/lib" />
+    <property name="dest.dir" value="build/classes" />
+    <property name="src.dir" value="src" />
+   
+    <property name="warFileName" value="web-test.war"></property>  
+    <target name="init" depends="clean">
+        <mkdir dir="${dest.dir}" />
+    </target>
+    <target name="compile" depends="init">
+        <javac srcdir="${src.dir}" destdir="${dest.dir}">
+            <classpath>
+                <fileset dir="${tomcat.lib}">
+                    <include name="*.jar" />
+                </fileset>
+                <fileset dir="WebContent/WEB-INF/lib">
+                    <include name="*.jar" />
+                </fileset>
+            </classpath>
+        </javac>
+    </target>
+    
+  
+    <target name="war" depends="compile">  
+      
+        <delete dir="${basedir}/${warFileName}" />  
+        
+        <war destfile="${basedir}/${warFileName}" webxml="${basedir}/WebContent/WEB-INF/web.xml">  
+            
+            <fileset dir="${basedir}/WebContent">  
+                <include name="**/**.*" />  
+                <exclude name="**/*.jar"/>  
+                <exclude name="**/*.class"/>  
+            </fileset>  
+           
+            <lib dir="${basedir}/WebContent/WEB-INF/lib" />  
+            <classes dir="${dest.dir}" />  
+        </war>  
+    </target>
+    
+    <target name="clean">
+        <delete dir="${dest.dir}" />
+    </target>
+</project>

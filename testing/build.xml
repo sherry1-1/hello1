@@ -7,9 +7,9 @@
 </tstamp>
 <property name="jmeter.home" value="\usr\local\apache-jmeter-5.1.1" />
 <property name="lib.dir" value="${jmeter.home}/lib"/>
-<property name="jmeter.result.jtl.dir" value="${jmeter.home}\extras\result\jtl" />
-<property name="jmeter.result.html.dir" value="${jmeter.home}\extras\result\html" />
-<property name="ReportName" value="testReport" />
+<property name="jmeter.result.jtl.dir" value="report\jtl" />
+<property name="jmeter.result.html.dir" value="report\html" />
+<property name="ReportName" value="sherry" />
 <property name="jmeter.result.jtlName" value="${jmeter.result.jtl.dir}/${ReportName}${timelog}.jtl" />
 <property name="jmeter.result.htmlName" value="${jmeter.result.html.dir}/${ReportName}${timelog}.html" />
 <property name="jmeter.result.htmlNameyj" value="${jmeter.result.html.dir}/${ReportName}${timeyj}.html" />
@@ -20,7 +20,8 @@
 <target name="test">
 <taskdef name="jmeter" classname="org.programmerplanet.ant.taskdefs.jmeter.JMeterTask" />
 <jmeter jmeterhome="${jmeter.home}" resultlog="${jmeter.result.jtlName}">
-<testplans dir="${jmeter.home}\extras\interfaceTest" includes="*.jmx" />
+<!--<testplans dir="${jmeter.home}\extras\interfaceTest" includes="*.jmx" />-->
+<testplans dir="." includes="*.jmx" />
 <property name="jmeter.save.saveservice.output_format" value="xml"/>
 </jmeter>
 </target>

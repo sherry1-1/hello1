@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="GB2312"?>
+<project name="ant-jmeter-test" default="all" basedir=".">
+<tstamp>
+<format property="time" pattern="yyyy/MM/dd HH:mm" />
+<format property="timelog" pattern="yyyyMMddHHmm" />
+<format property="timeyj" pattern="MMddyyyyHHmm" />
+</tstamp>
+<property name="jmeter.home" value="\usr\local\apache-jmeter-5.1.1" />
+<property name="lib.dir" value="${jmeter.home}/lib"/>
+<property name="jmeter.result.jtl.dir" value="${jmeter.home}\extras\result\jtl" />
+<property name="jmeter.result.html.dir" value="${jmeter.home}\extras\result\html" />
+<property name="ReportName" value="testReport" />
+<property name="jmeter.result.jtlName" value="${jmeter.result.jtl.dir}/${ReportName}${timelog}.jtl" />
+<property name="jmeter.result.htmlName" value="${jmeter.result.html.dir}/${ReportName}${timelog}.html" />
+<property name="jmeter.result.htmlNameyj" value="${jmeter.result.html.dir}/${ReportName}${timeyj}.html" />
+<target name="all">
+<antcall target="test" />
+<antcall target="report" />
+</target>
+<target name="test">
+<taskdef name="jmeter" classname="org.programmerplanet.ant.taskdefs.jmeter.JMeterTask" />
+<jmeter jmeterhome="${jmeter.home}" resultlog="${jmeter.result.jtlName}">
+<testplans dir="${jmeter.home}\extras\interfaceTest" includes="*.jmx" />
+<property name="jmeter.save.saveservice.output_format" value="xml"/>
+</jmeter>
+</target>
+<target name="report">
+<path id="xslt.classpath">
+<fileset dir="${lib.dir}" includes="xalan*.jar"/>
+<fileset dir="${lib.dir}" includes="serializer*.jar"/>
+</path>
+<xslt classpathref="xslt.classpath" force="true" in="${jmeter.result.jtlName}" out="${jmeter.result.htmlName}" style="${jmeter.home}/extras/jmeter-results-detail-report_21.xsl">
+<param name="dateReport" expression="${time}"/>
+</xslt>
+<!--<xslt classpathref="xslt.classpath" force="true" in="${jmeter.result.jtlName}" out="${jmeter.result.htmlNameyj}" style="${jmeter.home}/extras/jmeter-results-transaction-email-report.xsl">
+<param name="dateReport" expression="${time}"/>
+</xslt>-->
+<copy todir="${jmeter.result.html.dir}">
+<fileset dir="${jmeter.home}/extras">
+<include name="collapse.png" />
+<include name="expand.png" />
+</fileset>
+</copy>
+</target>
+</project>

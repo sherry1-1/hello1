@@ -30,7 +30,7 @@
 <fileset dir="${lib.dir}" includes="xalan*.jar"/>
 <fileset dir="${lib.dir}" includes="serializer*.jar"/>
 </path>
-<xslt classpathref="xslt.classpath" force="true" in="${jmeter.result.jtlName}" out="${jmeter.result.htmlName}" style="${jmeter.home}/extras/jmeter-results-detail-report_21.xsl">
+<xslt classpathref="xslt.classpath" force="true" in="${jmeter.result.jtlName}" out="${jmeter.result.htmlName}" style="${jmeter.home}/extras/jmeter.results.shanhe.me.xsl">
 <param name="dateReport" expression="${time}"/>
 </xslt>
 <!--<xslt classpathref="xslt.classpath" force="true" in="${jmeter.result.jtlName}" out="${jmeter.result.htmlNameyj}" style="${jmeter.home}/extras/jmeter-results-transaction-email-report.xsl">
